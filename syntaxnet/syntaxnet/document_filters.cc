@@ -124,7 +124,7 @@ class DocumentSource : public OpKernel {
       corpus_.get();
 
     while ((document = reader->Read()) != nullptr) {
-      LOG(INFO) << "DocumentSource read document: " << document->DebugString();
+      //LOG(INFO) << "DocumentSource read document: " << document->DebugString();
       document_batch.push_back(document);
       if (static_cast<int>(document_batch.size()) == batch_size_) {
         OutputDocuments(context, &document_batch);
