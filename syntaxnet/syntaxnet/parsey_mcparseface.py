@@ -105,7 +105,7 @@ def ExportModel(sess, model_dir, input, output, assets):
   writer.flush()
 
   # exporting the graph as a text protobuf, to view graph manualy
-  f1 = open(model_dir + '/graph.pbtxt', 'w+');
+  f1 = open(os.path.join(model_dir, 'graph.pbtxt'), 'w+');
   print >>f1, str(tf.get_default_graph().as_graph_def())
 
 def main(unused_argv):
@@ -129,7 +129,7 @@ def main(unused_argv):
             "hidden_layer_sizes": "64",
             # input is taken from input tensor, not from corpus
             "input":              None,
-            "model_path":         "%s/tagger-params" % model_dir,
+            "model_path":         os.path.join(model_dir, "tagger-params"),
 
             },
         "brain_parser": {
@@ -137,7 +137,7 @@ def main(unused_argv):
             "hidden_layer_sizes": "512,512",
             # input is taken from input tensor, not from corpus
             "input":              None,
-            "model_path":         "%s/parser-params" % model_dir,
+            "model_path":         os.path.join(model_dir, "parser-params"),
             },
       }
 
