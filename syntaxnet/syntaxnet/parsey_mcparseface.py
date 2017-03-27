@@ -13,6 +13,8 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('export_path', None, 'Path to export to intstead of running the model.')
+flags.DEFINE_string('model_dir', 'syntaxnet/models/parsey_mcparseface',
+                    'Path to model and other configuration files.')
 
 def Build(sess, document_source, FLAGS):
   """Builds a sub-network, which will be either the tagger or the parser
@@ -111,8 +113,8 @@ def ExportModel(sess, model_dir, input, output, assets):
 def main(unused_argv):
   logging.set_verbosity(logging.INFO)
 
-  model_dir="syntaxnet/models/parsey_mcparseface"
-  task_context="%s/context.pbtxt" % model_dir
+  model_dir=FLAGS.model_dir
+  task_context=os.path.join(model_dir, "context.pbtxt")
 
   common_params = {
       "task_context":  task_context,
