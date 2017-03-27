@@ -7,7 +7,7 @@ from tensorflow.python.platform import tf_logging as logging
 from syntaxnet import parser_eval
 from syntaxnet.ops import gen_parser_ops
 from syntaxnet import structured_graph_builder
-from tensorflow_serving.session_bundle import exporter
+from tensorflow.contrib.session_bundle import exporter
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
@@ -101,7 +101,7 @@ def ExportModel(sess, model_dir, input, output, assets):
   model_exporter.export(model_dir, tf.constant(1), sess)
 
   # using a SummaryWriter so graph can be loaded in TensorBoard
-  writer = tf.train.SummaryWriter(model_dir, sess.graph)
+  writer = tf.summary.FileWriter(model_dir, sess.graph)
   writer.flush()
 
   # exporting the graph as a text protobuf, to view graph manualy
